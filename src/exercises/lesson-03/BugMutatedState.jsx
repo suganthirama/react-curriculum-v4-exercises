@@ -10,11 +10,10 @@
 
 import { useState } from 'react';
 export default function BugMutatedState() {
-  let [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
   function handleAdd() {
-    count++;
-    setCount(count);
+    setCount((count) => count + 1);
   }
 
   return (
@@ -26,4 +25,8 @@ export default function BugMutatedState() {
 }
 
 // Explanation:
-// (Write your explanation here)
+// Instead of mutating count directly with count++, use a
+// functional state update to calculate the next value.
+// React receives the updated state and can re-render the
+// component correctly. This approach also ensures the
+// update uses the latest state value.
