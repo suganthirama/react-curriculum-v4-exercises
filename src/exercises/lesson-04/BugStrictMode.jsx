@@ -7,9 +7,13 @@ export default function BugStrictMode() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    setInterval(() => {
+    const intervalID = setInterval(() => {
       setCount((c) => c + 1);
     }, 1000);
+
+    return () => {
+      clearInterval(intervalID);
+    };
   }, []);
 
   return (
@@ -20,4 +24,5 @@ export default function BugStrictMode() {
   );
 }
 
-// Write your explanation of how StrictMode helps us catch this bug
+// The Effect creates an interval every time it runs.
+// Since the interval isn't cleared, multiple intervals can remain active, causing the counter to increment faster than expected.
